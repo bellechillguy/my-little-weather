@@ -26,11 +26,11 @@ from flask import Flask, Response, jsonify, render_template
 
 app = Flask(__name__)
 
-# Application paths and caching constants
+# Application-wide paths and cache configuration.
 BASE_DIR = Path(__file__).resolve().parent
 CACHE_SECONDS = 120
 
-# In-memory weather cache shared across requests
+# The cache is process-local and protected because Flask may serve concurrent requests.
 _cache: dict[str, Any] | None = None
 _cache_until: float = 0.0
 _cache_lock = threading.Lock()
@@ -113,7 +113,7 @@ def weather() -> Response | tuple[Response, int]:
         return failure("No API key is configured. Set OPENWEATHER_API_KEY in .env and try again.", 503)
 
     with _cache_lock:
-        # Return valid cached payload if within expiration window
+        # Reuse a fresh response to avoid unnecessary upstream requests.
         if _cache is not None and time.monotonic() < _cache_until:
             return jsonify(_cache)
 
@@ -129,7 +129,7 @@ def weather() -> Response | tuple[Response, int]:
         )
 
         try:
-            # Fall back to macOS/system CA bundle if Python's built-in bundle is absent
+            # Use the macOS system CA bundle when Python has no configured CA file.
             system_ca = Path("/etc/ssl/cert.pem")
             use_system_ca = (
                 not ssl.get_default_verify_paths().cafile

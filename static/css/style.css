@@ -2,6 +2,18 @@
    My Little Weather — Stylesheet
    Theme: Nostalgic early-2000s personal site with Equestria sky keepers.
    Typography: Creampuff (display numerals & titles) + Montserrat (UI & data).
+
+   Organization:
+   1. Design tokens and document defaults
+   2. Shell, navigation, and dashboard layout
+   3. Theme controls and dashboard widgets
+   4. Weather report, daylight arc, and dialog components
+   5. Responsive breakpoints
+   6. Final component-specific alignment rules
+
+   The final alignment section intentionally appears after the component and
+   breakpoint rules so the calibrated desktop and mobile values remain easy to
+   find and override without changing the base component definitions.
    ========================================================================== */
 
 /* --- 1. Fonts & Custom Font Faces --- */
@@ -1150,7 +1162,7 @@ dialog::backdrop {
   filter: brightness(0) invert(1);
 }
 
-/* Weather-card alignment and contrast. */
+/* Weather card contrast and control states. */
 .field-icon,
 [data-theme="night"] .field-icon {
   background: transparent !important;
@@ -1179,7 +1191,7 @@ dialog::backdrop {
   color: #101a36 !important;
 }
 
-/* Weather spacing and sun-path geometry. */
+/* Weather detail spacing and sun-path geometry. */
 .weather-display > div:first-child {
   grid-template-rows: auto auto !important;
   row-gap: 4px !important;
@@ -1206,7 +1218,7 @@ dialog::backdrop {
   top: 30px;
 }
 
-/* Weather illustration sizing. */
+/* Weather illustration dimensions. */
 .weather-art {
   width: 168px !important;
   height: 168px !important;
@@ -1225,7 +1237,7 @@ dialog::backdrop {
   top: 30px;
 }
 
-/* Keep the sun icon visible at path endpoints. */
+/* Keep the sun marker visible at path endpoints. */
 #sun-marker {
   clip-path: none !important;
   overflow: visible !important;
@@ -1293,54 +1305,6 @@ dialog::backdrop {
   transform: translateY(-6px) !important;
 }
 
-@media (min-width: 701px) {
-  .weather-window > .window-title {
-    min-height: 47px !important;
-    padding-block: 9px !important;
-  }
-
-  .weather-body {
-    padding: 18px 25px 8px !important;
-  }
-
-  .location-row {
-    min-height: 96px !important;
-  }
-
-  .weather-display {
-    min-height: 142px !important;
-  }
-
-  .weather-art {
-    width: 142px !important;
-    height: 142px !important;
-    min-height: 142px !important;
-  }
-
-  .field-log {
-    margin-top: 13px !important;
-    padding-block: 8px 6px !important;
-  }
-
-  .field-log caption {
-    padding-bottom: 7px !important;
-  }
-
-  .field-log tr {
-    height: 38px !important;
-  }
-
-  .field-log th,
-  .field-log td {
-    padding-block: 4px !important;
-  }
-
-  .update-row {
-    margin-top: 8px !important;
-    padding-top: 6px !important;
-  }
-}
-
 /* Weather illustration sizing. */
 .weather-art {
   width: 168px !important;
@@ -1389,25 +1353,7 @@ dialog::backdrop {
   inset: 9px 0 0 !important;
 }
 
-/* Compact weather detail stack. */
-.weather-display > div:first-child {
-  grid-template-rows: auto auto !important;
-  row-gap: 4px !important;
-}
-
-.weather-display > div:first-child .temperature {
-  grid-row: 1 / span 2 !important;
-}
-
-.weather-display > div:first-child .condition {
-  grid-row: 1 !important;
-}
-
-.weather-display > div:first-child .feels-like {
-  grid-row: 2 !important;
-}
-
-/* Align the arc with the horizontal baseline. */
+/* Align the daylight arc with its horizontal baseline. */
 .sun-path i {
   inset: 9px 0 0 !important;
 }
@@ -1433,7 +1379,7 @@ dialog::backdrop {
   transform: translateX(-50%);
 }
 
-/* Reference alignment. */
+/* Weather detail alignment and unit controls. */
 .unit-switch {
   background: #fffdf7 !important;
   border-color: #d99cca !important;
@@ -1496,7 +1442,7 @@ dialog::backdrop {
   align-self: center !important;
 }
 
-/* Weather composition for both themes. */
+/* Shared weather composition for both themes. */
 .unit-switch {
   background: #fffdf7 !important;
   border-color: #d99cca !important;
@@ -1586,7 +1532,7 @@ dialog::backdrop {
   }
 }
 
-/* Shared visual overrides. */
+/* Shared visual rules that apply across themes and breakpoints. */
 *,
 *::before,
 *::after {
@@ -2459,7 +2405,7 @@ footer p {
   font-size: 11px;
 }
 
-/* --- 16. Medium and Mobile Layout Media Queries --- */
+/* --- 16. Medium and mobile layout media queries --- */
 @media (max-width: 1100px) {
   .dashboard {
     grid-template-columns: 215px minmax(0, 1fr);
@@ -2653,7 +2599,7 @@ footer p {
   }
 }
 
-/* --- Optical spacing: compact report, quieter sidebar, unframed weather art --- */
+/* --- Compact report spacing and unframed weather artwork --- */
 .masthead {
   min-height: 150px;
   padding-block: 17px;
@@ -2774,7 +2720,7 @@ footer p {
   #about-open .pixel-icon { width: 14px; height: 14px; }
 }
 
-/* --- Weather report card layout --- */
+/* --- Weather report card component --- */
 .weather-window {
   overflow: hidden;
   border-radius: 11px;

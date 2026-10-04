@@ -23,6 +23,45 @@ PORT=5050 .venv/bin/python my-little-weather.py
 
 This is a local development server with debug mode disabled. Installation and live weather requests need an internet connection.
 
+## Application flow
+
+1. Flask renders `templates/index.html` and serves the local assets.
+2. The browser controller in `static/js/script.js` requests `/api/weather`.
+3. The backend reads `OPENWEATHER_API_KEY`, requests Bandung conditions from OpenWeather, and normalizes the response.
+4. A process-local cache serves the normalized response for up to 120 seconds.
+5. The frontend renders the weather card, station notes, theme, unit conversion, observation age, and daylight marker.
+
+The backend never sends the OpenWeather API key to the browser. When an upstream request fails, the API returns a user-facing error message with an appropriate HTTP status instead of simulated weather data.
+
+## API contract
+
+### `GET /api/weather`
+
+Successful responses contain this normalized schema:
+
+| Field | Description |
+| --- | --- |
+| `city`, `country` | Fixed location labels for Bandung, Indonesia |
+| `temperature`, `feels_like` | Temperatures in Celsius |
+| `humidity`, `pressure`, `clouds` | Current measurements from OpenWeather |
+| `wind_speed` | Wind speed converted to kilometres per hour |
+| `visibility` | Visibility in kilometres, or `null` when unavailable |
+| `condition_id`, `description` | OpenWeather condition classification and English description |
+| `sunrise`, `sunset`, `observed_at` | Unix timestamps from the upstream response |
+| `fetched_at` | Server fetch timestamp |
+| `timezone`, `source` | Display metadata |
+
+Error responses use the shape `{ "error": "..." }`. JSON responses are marked `no-store` by the Flask response hook.
+
+## Source guide
+
+- `my-little-weather.py`: configuration, API-key resolution, upstream request handling, normalization, caching, and HTTP headers.
+- `templates/index.html`: semantic page structure and Jinja macros for local icons.
+- `static/css/style.css`: design tokens, component styles, responsive breakpoints, and the final alignment section.
+- `static/js/script.js`: browser state, API rendering, theme/unit controls, freshness labels, and daylight calculations.
+- `tests/test_weather.py`: Flask route, normalization, error handling, and local-asset checks.
+- `tests/test_frontend.cjs`: isolated frontend behavior tests using a mocked DOM and network layer.
+
 ## Features
 
 - Current OpenWeather conditions for `Bandung,ID`, with English descriptions and metric units.

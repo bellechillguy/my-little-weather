@@ -10,7 +10,7 @@
  * - Periodic weather polling, in-memory freshness tracking, and offline states.
  */
 (() => {
-  // DOM & Storage Utilities
+  // DOM and local-storage helpers keep browser access in one place.
   const $ = (id) => document.getElementById(id);
   const root = document.documentElement;
 
@@ -30,7 +30,7 @@
     }
   };
 
-  // State Management
+  // Mutable view state. Weather data is replaced only after a successful response.
   const modes = ['auto', 'day', 'night'];
   let mode = stored('mlw-theme', 'auto');
   if (!modes.includes(mode)) mode = 'auto';
@@ -40,7 +40,7 @@
   let loading = false;
   let failed = false;
 
-  // Regional Formatters (Western Indonesia Time / Asia/Jakarta)
+  // Regional formatters for Western Indonesia Time (Asia/Jakarta).
   const timeFormat = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Asia/Jakarta',
     hour: '2-digit',
@@ -87,7 +87,7 @@
     weather &&
     dayFormat.format(new Date(weather.sunrise * 1000)) === dayFormat.format(new Date());
 
-  // Theme & Sky Keeper Management
+  // Theme selection and daylight-based sky-keeper state.
   function setTheme() {
     let isDay = bandungHour() >= 6 && bandungHour() < 18;
     if (hasTodaySun()) {
@@ -128,7 +128,7 @@
     $('weather-image').src = `/static/icons/${folder}/${file}.svg`;
   }
 
-  // Temperature & Unit Conversion
+  // Temperature rendering and Celsius/Fahrenheit conversion.
   function renderTemperatures() {
     const convert = (value) => Math.round(unit === 'c' ? value : value * 9 / 5 + 32);
 
@@ -144,7 +144,7 @@
     renderStationNotes();
   }
 
-  // Weather Condition Classification
+  // Map OpenWeather condition IDs to presentation categories and copy.
   function skyNotes(id) {
     if (id < 300) return ['storm', 'Thunder on the report.'];
     if (id < 600) return ['rain', 'Rain duty.'];
@@ -154,7 +154,7 @@
     return ['clouds', 'Cloud crew on duty.'];
   }
 
-  // Station Journal & Daily Pony Business
+  // Render the station journal and the daily activity recommendations.
   function renderStationNotes() {
     if (!weather) return;
 
@@ -230,7 +230,7 @@
       : 'current conditions only · not a forecast';
   }
 
-  // Data Freshness & Observation Time Tracking
+  // Render observation age, stale-data messaging, and journal metadata.
   function refreshFreshness() {
     if (!weather) return;
 
@@ -268,7 +268,7 @@
       : '';
   }
 
-  // Sun Path Arc Calculation
+  // Calculate the sun marker position along the daylight arc.
   function renderSunPosition() {
     const marker = $('sun-marker');
     if (!hasTodaySun() || weather.sunset <= weather.sunrise) {
