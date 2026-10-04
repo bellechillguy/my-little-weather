@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fbe995">
+    <meta name="description" content="Current weather in Bandung, with a little help from Princess Celestia and Princess Luna.">
+    <title>My Little Weather | Bandung Weather</title>
+    <link rel="icon" href="{{ url_for('static', filename='icons/logo.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+{% macro icon(name, extra='') -%}
+<img class="icon {{ extra }}" src="{{ url_for('static', filename='icons/lucide/' ~ name ~ '.svg') }}" alt="" aria-hidden="true" width="18" height="18">
+{%- endmacro %}
+
+{% macro pixel(name, extra='') -%}
+<img class="icon pixel-icon {{ extra }}" src="{{ url_for('static', filename='icons/pixelarticons/' ~ name ~ '.svg') }}" alt="" aria-hidden="true" width="24" height="24">
+{%- endmacro %}
+
+<body>
+<a class="skip-link" href="#weather">Skip to weather</a>
+
+<div class="site-shell">
+    <div class="top-note">
+        <span>a tiny corner of the internet</span>
+        <span>Bandung, Indonesia</span>
+    </div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+        <a class="brand-seal" href="#home" aria-label="My Little Weather, home">
+            <img src="{{ url_for('static', filename='icons/logo.png') }}" alt="" width="90" height="90">
+        </a>
+        <div class="brand-copy" id="home">
+            <p class="eyebrow">BANDUNG WEATHER, AS REPORTED BY PONIES</p>
+            <h1>My Little Weather</h1>
+        </div>
+        <div class="header-stamp" aria-hidden="true">
+            <span>100%</span>
+            <span>chance of<br> friendship</span>
+            {{ icon("heart") }}
+        </div>
+    </header>
+
+    <!-- Navigation Strip -->
+    <nav class="nav-strip" aria-label="Main navigation">
+        <a class="nav-active" href="#weather">{{ pixel("sun") }} Today's weather</a>
+        <a href="#sky-journal">{{ pixel("book-open") }} Sky notes</a>
+        <button type="button" id="about-open">{{ pixel("circle-info") }} About this site</button>
+        <span class="nav-signature">est. 2026 · a personal weather page</span>
+    </nav>
+
+    <!-- Welcome & Station Announcement -->
+    <div class="welcome-strip" id="station-announcement">
+        Hello, everypony! Waiting for the Bandung weather report.
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard">
+
+        <!-- Center Column: Primary Weather Report & Sky Journal -->
+        <div class="center-column">
+
+            <!-- Primary Weather Window -->
+            <section class="window weather-window" id="weather" aria-labelledby="weather-heading" aria-busy="true">
+                <div class="window-title">
+                    <h2 id="weather-heading">{{ icon("cloud") }} The Cloudsdale report</h2>
+                    <span class="live-label" id="live-label">CONNECTING</span>
+                </div>
+                <div class="weather-body">
+                    <div class="location-row">
+                        <div>
+                            <p class="eyebrow">THE SKY OVER</p>
+                            <h3>Bandung</h3>
+                            <p class="location-subtitle">West Java, Indonesia</p>
+                        </div>
+                        <div class="unit-switch" role="group" aria-label="Temperature unit">
+                            <button type="button" data-unit="c" aria-pressed="true" aria-label="Celsius">°C</button>
+                            <button type="button" data-unit="f" aria-pressed="false" aria-label="Fahrenheit">°F</button>
+                        </div>
+                    </div>
+
+                    <div class="weather-display">
+                        <div>
+                            <div class="temperature">
+                                <span id="temperature">—</span>
+                                <span class="degree" id="degree">°C</span>
+                            </div>
+                            <p class="condition" id="condition">Checking the sky…</p>
+                            <p class="feels-like">Feels like <strong id="feels-like">—</strong></p>
+                        </div>
+                        <div class="weather-art" id="weather-art" aria-hidden="true">
+                            <img id="weather-image" src="{{ url_for('static', filename='icons/pixelarticons/cloud.svg') }}" alt="" width="96" height="96">
+                        </div>
+                    </div>
+
+                    <p id="status-message" class="status-message" role="status" aria-live="polite">
+                        Fetching the latest weather from OpenWeather…
+                    </p>
+
+                    <table class="field-log">
+                        <caption>Cloudsdale field log</caption>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><span class="field-icon">{{ icon("cloud") }}</span>Cloud coverage</th>
+                                <td id="clouds">—</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="field-icon">{{ icon("droplets") }}</span>Humidity</th>
+                                <td id="humidity">—</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="field-icon">{{ icon("wind") }}</span>Wind speed</th>
+                                <td id="wind">—</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="field-icon">{{ icon("info") }}</span>Visibility</th>
+                                <td id="visibility">—</td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><span class="field-icon">{{ icon("clock") }}</span>Pressure</th>
+                                <td id="pressure">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="update-row">
+                        <time id="updated-at">No weather data yet</time>
+                        <button type="button" id="refresh" class="retro-button">
+                            {{ icon("refresh-cw") }} <span id="refresh-label">Refresh</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sky Journal Window -->
+            <section class="journal-window" id="sky-journal" aria-labelledby="tip-title">
+                <h2 id="tip-title">Waiting for the report.</h2>
+                <p id="weather-tip">The station notes will appear when observations arrive.</p>
+                <p class="journal-byline" id="journal-byline">filed from Bandung</p>
+            </section>
+        </div>
+
+        <!-- Right Column: Time, Daylight, and Daily Pony Business -->
+        <aside class="right-column" aria-label="Bandung time and daylight">
+            <section class="window sun-window">
+                <h2 class="window-title">From dawn to dusk</h2>
+                <div class="sun-body">
+                    <div class="sun-path" id="sun-path" aria-hidden="true">
+                        <span id="sun-marker" hidden>{{ pixel("sun") }}</span>
+                        <i></i>
+                    </div>
+                    <div class="sun-times">
+                        <div>
+                            <span>{{ icon("sunrise") }} Sunrise</span>
+                            <strong id="sunrise">—:—</strong>
+                        </div>
+                        <div>
+                            <span>{{ icon("sunset") }} Sunset</span>
+                            <strong id="sunset">—:—</strong>
+                        </div>
+                    </div>
+                    <p id="sun-position">Waiting for daylight times.</p>
+                    <p id="day-length">—</p>
+                </div>
+            </section>
+
+            <section class="pony-business" aria-labelledby="business-heading">
+                <h2 id="business-heading">Today’s pony business</h2>
+                <dl>
+                    <div>
+                        <dt>Sky gazing</dt>
+                        <dd id="cloud-business">Awaiting report</dd>
+                    </div>
+                    <div>
+                        <dt>Picnic?</dt>
+                        <dd id="picnic-business">Awaiting report</dd>
+                    </div>
+                    <div>
+                        <dt>Laundry outside</dt>
+                        <dd id="laundry-business">Awaiting report</dd>
+                    </div>
+                </dl>
+                <p id="business-note">current conditions only · not a forecast</p>
+            </section>
+
+            <section class="clock-window">
+                <h2 class="clock-heading">
+                    <span class="title-label">{{ icon("clock") }} Time in Bandung</span>
+                </h2>
+                <div class="clock-body">
+                    <p id="local-date">Bandung, Indonesia</p>
+                    <time id="local-clock">—:—:—</time>
+                    <span>WIB · UTC+7</span>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Left Column: Theme Selectors, Postcard, and Club Badge -->
+        <aside class="left-column" aria-label="Themes and weather companions">
+            <section class="window theme-window">
+                <h2 class="window-title">Choose your sky keeper</h2>
+                <div class="window-body">
+                    <p class="small-intro">Pick a theme for this page.</p>
+                    <div class="theme-options" role="radiogroup" aria-label="Choose a theme">
+                        <label class="theme-choice">
+                            <img src="{{ url_for('static', filename='images/celestia-cutie-mark.svg') }}" alt="" width="40" height="40">
+                            <span><strong>Celestia</strong><small>warm & bright</small></span>
+                            <input type="radio" name="sky-keeper" value="day" data-mode="day">
+                        </label>
+                        <label class="theme-choice">
+                            <img class="luna-mark" src="{{ url_for('static', filename='images/luna-cutie-mark.webp') }}" alt="" width="40" height="40">
+                            <span><strong>Luna</strong><small>quiet & starry</small></span>
+                            <input type="radio" name="sky-keeper" value="night" data-mode="night">
+                        </label>
+                        <label class="theme-choice">
+                            {{ pixel("reload", "auto-icon") }}
+                            <span><strong>Auto</strong><small>follow daylight</small></span>
+                            <input type="radio" name="sky-keeper" value="auto" data-mode="auto" checked>
+                        </label>
+                    </div>
+                    <p class="theme-note" id="theme-note">Following Bandung local time.</p>
+                </div>
+            </section>
+
+            <section class="postcard">
+                <span class="tape" aria-hidden="true"></span>
+                <div class="postcard-picture">
+                    <img class="day-only" src="{{ url_for('static', filename='images/morning.gif') }}" alt="Princess Celestia welcoming the sun" width="498" height="278">
+                    <img class="night-only" src="{{ url_for('static', filename='images/night.gif') }}" alt="Moonlight and stars in Princess Luna’s sky" width="700" height="523">
+                </div>
+                <p class="day-only">a little sunshine for you</p>
+                <p class="night-only">the night is full of little wonders</p>
+            </section>
+
+            <div class="club-badge">
+                {{ icon("cloud", "club-icon") }}
+                <div>
+                    cloud watching club
+                    <small>everyone is welcome!</small>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Friendship Strip -->
+    <section class="friendship-strip" aria-label="Friendship is magic">
+        <div class="friendship-copy">
+            <h2>Whatever the weather,<br> we shine together.</h2>
+        </div>
+        <img class="pony-parade" src="{{ url_for('static', filename='images/mlp.gif') }}" alt="Pinkie Pie, Rainbow Dash, Fluttershy, Applejack, Rarity, and Twilight Sparkle running together" width="1200" height="551">
+        <div class="friendship-stamp" aria-hidden="true">
+            FRIENDSHIP<br> <strong>is magic!</strong>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-badges">
+            <span class="web-badge">handmade<br> <strong>with care</strong></span>
+            <span class="web-badge rainbow-badge">best viewed<br> <strong>with kindness</strong></span>
+        </div>
+        <p>Weather by <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a> · fan-made in Bandung</p>
+    </footer>
+
+    <p class="last-note">thanks for stopping by. see you tomorrow!</p>
+</div>
+
+<!-- About Modal Dialog -->
+<dialog id="about-dialog" aria-labelledby="about-title">
+    <div class="window-title">
+        <h2 id="about-title" tabindex="-1" autofocus>About My Little Weather</h2>
+        <button id="about-close" type="button" aria-label="Close">{{ icon("x") }}</button>
+    </div>
+    <div class="dialog-body">
+        <p>A little weather page for Bandung, inspired by personal websites of the early 2000s and Equestria’s two sky keepers.</p>
+        <p>Current weather comes from <a href="https://openweathermap.org/api/current" target="_blank" rel="noopener noreferrer">OpenWeather</a> and refreshes every 5 minutes while the page is open. The report also shows when the observations were recorded.</p>
+        <p>Auto mode switches between Celestia and Luna with Bandung’s sunrise and sunset. If those times aren’t available yet, daytime runs from 06:00 to 18:00 local time.</p>
+        <section class="about-credits" aria-labelledby="credits-title">
+            <h3 id="credits-title">Credits</h3>
+            <p>Pony images and GIFs come from the collection used throughout this site. Icons: <a href="https://lucide.dev/" target="_blank" rel="noopener noreferrer">Lucide</a> and <a href="https://github.com/halfmage/pixelarticons" target="_blank" rel="noopener noreferrer">Pixelarticons</a>.</p>
+            <p>Creampuff by Nick Curtis. <a href="https://fonts.google.com/specimen/Montserrat" target="_blank" rel="noopener noreferrer">Montserrat</a> via Google Fonts.</p>
+        </section>
+        <p class="about-disclaimer">An unofficial fan project, not affiliated with Hasbro. My Little Pony and its characters belong to their respective owners.</p>
+    </div>
+</dialog>
+
+<noscript>
+    <div class="noscript-note">Please enable JavaScript to load the weather and switch themes.</div>
+</noscript>
+</body>
+</html>
