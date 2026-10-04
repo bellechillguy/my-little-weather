@@ -474,6 +474,7 @@ h1 {
   gap: 10px;
   justify-content: center;
   align-items: center;
+  transform: translateY(4px);
   padding: 7px;
   border-top: 1px dotted var(--outline);
   border-bottom: 1px dotted var(--outline);
@@ -2160,7 +2161,7 @@ dialog::backdrop {
 .club-badge {
   border-top: 0;
   border-bottom: 0;
-  gap: 3px;
+  gap: 8px;
 }
 
 .location-row .eyebrow {

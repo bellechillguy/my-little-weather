@@ -227,7 +227,7 @@
 
     $('business-note').textContent = old
       ? 'Last available observations. Refresh before making plans.'
-      : 'current conditions only · not a forecast';
+      : 'current conditions only, not a forecast';
   }
 
   // Render observation age, stale-data messaging, and journal metadata.
@@ -254,7 +254,7 @@
     $('updated-at').textContent = `${failed || ageMinutes >= 30 ? 'Last observed' : 'Observed'} ${age}`;
     $('updated-at').dateTime = observed.toISOString();
     $('updated-at').title = `${date}, ${timeText(weather.observed_at)} WIB`;
-    $('journal-byline').textContent = `filed from Bandung · ${date}, ${timeText(weather.observed_at)} WIB`;
+    $('journal-byline').textContent = `filed from Bandung, ${date}, ${timeText(weather.observed_at)} WIB`;
 
     renderStationNotes();
 

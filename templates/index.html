@@ -52,7 +52,7 @@
         <a class="nav-active" href="#weather">{{ pixel("sun") }} Today's weather</a>
         <a href="#sky-journal">{{ pixel("book-open") }} Sky notes</a>
         <button type="button" id="about-open">{{ pixel("circle-info") }} About this site</button>
-        <span class="nav-signature">est. 2026 · a personal weather page</span>
+        <span class="nav-signature">est. 2026 | a personal weather page</span>
     </nav>
 
     <!-- Live weather greeting and status summary. -->
@@ -186,7 +186,7 @@
                         <dd id="laundry-business">Awaiting report</dd>
                     </div>
                 </dl>
-                <p id="business-note">current conditions only · not a forecast</p>
+                <p id="business-note">current conditions only, not a forecast</p>
             </section>
 
             <section class="clock-window">
@@ -196,7 +196,7 @@
                 <div class="clock-body">
                     <p id="local-date">Bandung, Indonesia</p>
                     <time id="local-clock">—:—:—</time>
-                    <span>WIB · UTC+7</span>
+                    <span>WIB - UTC+7</span>
                 </div>
             </section>
         </aside>
@@ -204,18 +204,18 @@
         <!-- Left Column: Theme Selectors, Postcard, and Club Badge -->
         <aside class="left-column" aria-label="Themes and weather companions">
             <section class="window theme-window">
-                <h2 class="window-title">Choose your sky keeper</h2>
+                <h2 class="window-title">Choose your sky keeper!</h2>
                 <div class="window-body">
                     <p class="small-intro">Pick a theme for this page.</p>
                     <div class="theme-options" role="radiogroup" aria-label="Choose a theme">
                         <label class="theme-choice">
                             <img src="{{ url_for('static', filename='images/celestia-cutie-mark.svg') }}" alt="" width="40" height="40">
-                            <span><strong>Celestia</strong><small>warm & bright</small></span>
+                            <span><strong>Celestia</strong><small>raised the sun</small></span>
                             <input type="radio" name="sky-keeper" value="day" data-mode="day">
                         </label>
                         <label class="theme-choice">
                             <img class="luna-mark" src="{{ url_for('static', filename='images/luna-cutie-mark.webp') }}" alt="" width="40" height="40">
-                            <span><strong>Luna</strong><small>quiet & starry</small></span>
+                            <span><strong>Luna</strong><small>raised the moon</small></span>
                             <input type="radio" name="sky-keeper" value="night" data-mode="night">
                         </label>
                         <label class="theme-choice">
@@ -241,8 +241,8 @@
             <div class="club-badge">
                 {{ icon("cloud", "club-icon") }}
                 <div>
-                    cloud watching club
-                    <small>everyone is welcome!</small>
+                    Pink Pony Club
+                    <small>everypony is welcome!</small>
                 </div>
             </div>
         </aside>
@@ -263,10 +263,10 @@
     <!-- Footer -->
     <footer>
         <div class="footer-badges">
-            <span class="web-badge">handmade<br> <strong>with care</strong></span>
-            <span class="web-badge rainbow-badge">best viewed<br> <strong>with kindness</strong></span>
+            <span class="web-badge">made<br> <strong>by belle</strong></span>
+            <span class="web-badge rainbow-badge">with a lil touch<br> <strong>of love</strong></span>
         </div>
-        <p>Weather by <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a> · fan-made in Bandung</p>
+        <p>Weather by <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a> | fan-made in Bandung</p>
     </footer>
 
     <p class="last-note">thanks for stopping by. see you tomorrow!</p>
