@@ -1241,8 +1241,104 @@ dialog::backdrop {
   transform: translate(-50%, 2px) !important;
 }
 
+@media (min-width: 701px) {
+  .weather-window > .window-title {
+    min-height: 47px !important;
+    padding-block: 9px !important;
+  }
+
+  .weather-body {
+    padding: 18px 25px 8px !important;
+  }
+
+  .location-row {
+    min-height: 96px !important;
+  }
+
+  .weather-display {
+    min-height: 142px !important;
+  }
+
+  .weather-art {
+    width: 142px !important;
+    height: 142px !important;
+    min-height: 142px !important;
+  }
+
+  .field-log {
+    margin-top: 13px !important;
+    padding-block: 8px 6px !important;
+  }
+
+  .field-log caption {
+    padding-bottom: 7px !important;
+  }
+
+  .field-log tr {
+    height: 38px !important;
+  }
+
+  .field-log th,
+  .field-log td {
+    padding-block: 4px !important;
+  }
+
+  .update-row {
+    margin-top: 8px !important;
+    padding-top: 6px !important;
+  }
+}
+
 #weather-image {
   transform: translateY(-6px) !important;
+}
+
+@media (min-width: 701px) {
+  .weather-window > .window-title {
+    min-height: 47px !important;
+    padding-block: 9px !important;
+  }
+
+  .weather-body {
+    padding: 18px 25px 8px !important;
+  }
+
+  .location-row {
+    min-height: 96px !important;
+  }
+
+  .weather-display {
+    min-height: 142px !important;
+  }
+
+  .weather-art {
+    width: 142px !important;
+    height: 142px !important;
+    min-height: 142px !important;
+  }
+
+  .field-log {
+    margin-top: 13px !important;
+    padding-block: 8px 6px !important;
+  }
+
+  .field-log caption {
+    padding-bottom: 7px !important;
+  }
+
+  .field-log tr {
+    height: 38px !important;
+  }
+
+  .field-log th,
+  .field-log td {
+    padding-block: 4px !important;
+  }
+
+  .update-row {
+    margin-top: 8px !important;
+    padding-top: 6px !important;
+  }
 }
 
 /* Weather illustration sizing. */
@@ -2969,7 +3065,6 @@ footer p {
   }
 }
 
-/* Shared visual requirements. */
 *,
 *::before,
 *::after {
@@ -3013,7 +3108,6 @@ footer p {
   filter: brightness(0) invert(1);
 }
 
-/* Visual overrides. */
 .field-icon,
 [data-theme="night"] .field-icon {
   background: transparent !important;
@@ -3062,7 +3156,6 @@ footer p {
   top: auto !important;
   transform: translateX(-50%);
 }
-/* Reference alignment. */
 .unit-switch {
   background: #fffdf7 !important;
   border-color: #d99cca !important;
@@ -3101,7 +3194,6 @@ footer p {
   background: #a9c8ff !important;
   color: #101a36 !important;
 }
-/* Current weather layout overrides. */
 .weather-display > div:first-child {
   grid-template-rows: auto auto !important;
   row-gap: 4px !important;
@@ -3146,4 +3238,152 @@ footer p {
 
 #sun-marker {
   transform: translate(-50%, 2px) !important;
+}
+
+@media (min-width: 701px) {
+  .weather-window > .window-title {
+    min-height: 42px !important;
+    height: 42px !important;
+    padding-block: 7px !important;
+  }
+  .weather-body { padding: 18px 25px 6px !important; }
+  .location-row { min-height: 96px !important; }
+  .weather-display { min-height: 142px !important; }
+  .weather-art { width: 142px !important; height: 142px !important; min-height: 142px !important; }
+  .field-log { margin-top: 10px !important; padding-block: 7px 4px !important; }
+  .field-log caption { padding-bottom: 6px !important; }
+  .field-log tr { height: 36px !important; }
+  .field-log th,
+  .field-log td { padding-block: 3px !important; }
+  .update-row { margin-top: 17px !important; padding-top: 4px !important; }
+}
+
+@media (min-width: 701px) {
+  .weather-body {
+    padding: 24px 38px 12px !important;
+  }
+
+  .location-row {
+    min-height: 90px !important;
+  }
+
+  .weather-display {
+    min-height: 130px !important;
+  }
+
+  .weather-art {
+    width: 130px !important;
+    height: 130px !important;
+    min-height: 130px !important;
+  }
+
+  .field-log th,
+  .field-log td {
+    padding: 3px 14px !important;
+  }
+
+  .update-row {
+    margin-top: 18px !important;
+    padding: 0 4px !important;
+    border-top: 0 !important;
+  }
+
+  .update-row > time {
+    font-size: 14px !important;
+  }
+
+  .update-row .retro-button {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .weather-body {
+    padding: 18px 14px 12px !important;
+  }
+
+  .location-row {
+    min-height: 82px !important;
+  }
+
+  .weather-display {
+    grid-template-columns: 1fr !important;
+    row-gap: 6px !important;
+    padding-block: 8px 4px !important;
+  }
+
+  .weather-display > div:first-child {
+    min-height: 116px !important;
+    padding: 12px 0 !important;
+  }
+
+  .temperature {
+    font-size: 58px !important;
+  }
+
+  .condition {
+    font-size: 16px !important;
+  }
+
+  .feels-like {
+    font-size: 13px !important;
+  }
+
+  .weather-art {
+    width: 110px !important;
+    height: 110px !important;
+    min-height: 110px !important;
+    justify-self: center !important;
+  }
+
+  .weather-art > img {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .field-log {
+    width: 100% !important;
+    table-layout: fixed;
+  }
+
+  .field-log th,
+  .field-log td {
+    padding: 5px 7px !important;
+    font-size: 12px !important;
+  }
+
+  .field-log th {
+    width: 68%;
+  }
+
+  .field-log td {
+    width: 32%;
+  }
+
+  .field-icon {
+    width: 24px !important;
+    height: 24px !important;
+    margin-right: 8px !important;
+  }
+
+  .field-icon .icon {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .update-row {
+    margin-top: 12px !important;
+    padding: 0 !important;
+    gap: 8px !important;
+  }
+
+  .update-row > time,
+  .update-row .retro-button {
+    font-size: 13px !important;
+  }
+
+  .update-row .retro-button {
+    padding: 6px 10px !important;
+  }
 }
